@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MediaOperation</string>
+
+    <string name="title_multimedia">MultiMedia</string>
+    <string name="title_video">Video</string>
+    <string name="title_audio">Audio</string>
+    <string name="title_player">MediaPlayer</string>
+
+    <string name="wavButtonStr">Creat Wav And Play</string>
+    <string name="playPcmButtonStr">Play PCM</string>
+    <string name="recordButtonStr">Record</string>
+
+    <string name="startButtonStr">Start</string>
+
+    <string name="playButtonStr">Play</string>
+    <string name="pauseButtonStr">Pause</string>
+    <string name="stopButtonStr">Stop</string>
+    <string name="chooseButtonStr">choose</string>
+    <string name="chooseTipStr">choose:</string>
+
+
+</resources>

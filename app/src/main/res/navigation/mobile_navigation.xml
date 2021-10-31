@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_multimedia">
+
+    <fragment
+        android:id="@+id/navigation_multimedia"
+        android:name="com.example.mediaoperation.ui.multimedia.MultiMediaFragment"
+        android:label="@string/title_multimedia"
+        tools:layout="@layout/fragment_multimedia" />
+
+    <fragment
+        android:id="@+id/navigation_video"
+        android:name="com.example.mediaoperation.ui.video.VideoFragment"
+        android:label="@string/title_video"
+        tools:layout="@layout/fragment_video" />
+
+    <fragment
+        android:id="@+id/navigation_audio"
+        android:name="com.example.mediaoperation.ui.audio.AudioFragment"
+        android:label="@string/title_audio"
+        tools:layout="@layout/fragment_audio" />
+
+    <fragment
+        android:id="@+id/navigation_player"
+        android:name="com.example.mediaoperation.ui.player.PlayerFragment"
+        android:label="@string/title_player"
+        tools:layout="@layout/fragment_player" />
+</navigation>
