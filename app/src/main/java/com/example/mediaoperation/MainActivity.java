@@ -2,17 +2,14 @@ package com.example.mediaoperation;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.mediaoperation.ui.player.PlayerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
@@ -22,9 +19,20 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mediaoperation.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
     static {
+        //System.loadLibrary("yuv");
+        System.loadLibrary("x264");
+        System.loadLibrary("avutil");
+        System.loadLibrary("swresample");
+        System.loadLibrary("swscale");
+        System.loadLibrary("avcodec");
+        System.loadLibrary("avformat");
+        System.loadLibrary("postproc");
+        System.loadLibrary("avfilter");
+        System.loadLibrary("avdevice");
         System.loadLibrary("native-lib");
     }
 
@@ -33,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int GET_PERMISSION_RECODE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO
     };
@@ -55,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         verifyAudioPermissions(this);
+
+        stringFromJNI();
     }
 
 //    @Override
@@ -65,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void verifyAudioPermissions(Activity activity) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, GET_PERMISSION_RECODE);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, GET_PERMISSION_RECODE);
         }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -81,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public native String stringFromJNI();
-    public native int addWaveHeader(String pcmPath, String wavPath, int channel, int sampleRate, int sampleSize);
     public native void NV21ToI420(byte[] nv21Src, byte[] i420Src, int width, int height);
     public native void I420Rotate90(byte[] i420Src, byte[] i420Des, int width, int height);
+    public native void addWaterMarkWithFfmpeg(String inputFile, String markFile, String outputFile);
+    public native void pushRtmpWithFfmpeg(String inputFile, String rtmpUrl);
 }

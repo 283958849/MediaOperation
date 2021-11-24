@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mediaoperation.AddWavHeader;
+import com.example.mediaoperation.R;
 import com.example.mediaoperation.databinding.FragmentAudioBinding;
 
 import java.io.File;
@@ -84,8 +88,8 @@ public class AudioFragment extends Fragment {
         mStopButton = binding.stopButton;
         mPlayButton = binding.playButton;
 
-        mAudioPath = getContext().getCacheDir() + "/record2.pcm";
-        mWavPath = getContext().getCacheDir() + "/record2.wav";
+        mAudioPath = getContext().getExternalCacheDir() + "/record2.pcm";
+        mWavPath = getContext().getExternalCacheDir() + "/record2.wav";
         Log.i(TAG, "============= mAudioPath:" + mAudioPath + " mWavPath:" + mWavPath);
 
         mRecordButton.setOnClickListener(new View.OnClickListener() {

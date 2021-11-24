@@ -10,7 +10,7 @@ public class MultiMeidaViewModel extends ViewModel {
 
     public MultiMeidaViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("Multimedia fragment with v/a handle.");
     }
 
 

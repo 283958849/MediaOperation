@@ -16,7 +16,10 @@
     <string name="pauseButtonStr">Pause</string>
     <string name="stopButtonStr">Stop</string>
     <string name="chooseButtonStr">choose</string>
-    <string name="chooseTipStr">choose:</string>
+    <string name="chooseTipStr">choose</string>
+    <string name="filterButtonStr">add watermark</string>
+    <string name="rtmpButtonStr">rtmp push</string>
+    <string name="defaultButtonStr">default</string>
 
 
 </resources>

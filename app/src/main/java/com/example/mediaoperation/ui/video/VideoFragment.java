@@ -108,11 +108,11 @@ public class VideoFragment extends Fragment implements Camera.PreviewCallback {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || Environment.isExternalStorageManager()) {
             mMp4FilePath = Environment.getExternalStorageDirectory().getPath() + "/terrylee15.h264";
         } else {
-            mMp4FilePath = getContext().getCacheDir().getPath() + "/terrylee.h264";
+            mMp4FilePath = getContext().getExternalCacheDir().getPath() + "/terrylee.h264";
         }
 
         // for test
-        mMp4FilePath = getContext().getCacheDir().getPath() + "/terrylee.h264";
+        mMp4FilePath = getContext().getExternalCacheDir().getPath() + "/terrylee.h264";
         Log.i("HomeFragment", "======================mMp4FilePath: " + mMp4FilePath);
 
         initCamera(mHolder);  //for mWidth and mHeight, for decoder initialization
@@ -235,7 +235,6 @@ public class VideoFragment extends Fragment implements Camera.PreviewCallback {
             }
 
             mMediaExtractor = new MediaExtractor();
-            Log.i("HomeFragment", "----------------create mMediaExtractor!");
             mMediaExtractor.setDataSource(mMp4FilePath);
             int trackCount = mMediaExtractor.getTrackCount();
             Log.i("HomeFragment", "----------------mMediaExtractor trackCount:" + trackCount);
@@ -477,11 +476,13 @@ public class VideoFragment extends Fragment implements Camera.PreviewCallback {
         if (!mIsOnPreviewHandling) {
             mIsOnPreviewHandling = true;
             byte[] temp = new byte[mWidth * mHeight * 3 / 2];
-            //((MainActivity)getActivity()).NV21ToI420(bytes, mI420ByteArray, mWidth, mHeight);
-            nv21ToI420(bytes, temp);
+
+            //here must transform, or the video is landscape
+            ////nv21ToI420(bytes, temp);
+            ((MainActivity)getActivity()).NV21ToI420(bytes, temp, mWidth, mHeight);
             ((MainActivity) getActivity()).I420Rotate90(temp, mI420ByteArray, mWidth, mHeight);
 
-            int inputBufferId = mMediaCodec.dequeueInputBuffer(3000000);    //3s timeout
+            int inputBufferId = mMediaCodec.dequeueInputBuffer(30000);    //30ms timeout
             Log.i("HomeFragment", "----------------inputBufferId:" + inputBufferId);
             if (inputBufferId >= 0) {
                 ByteBuffer buff = mMediaCodec.getInputBuffer(inputBufferId);
@@ -493,6 +494,7 @@ public class VideoFragment extends Fragment implements Camera.PreviewCallback {
         }
     }
 
+    //no useful now! use libyuv instead!
     private void nv21ToI420(byte[] data, byte[] newData) {
         //1, copy all Y data
         System.arraycopy(data, 0, newData, 0, mWidth * mHeight);

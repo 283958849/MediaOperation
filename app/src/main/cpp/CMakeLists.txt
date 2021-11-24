@@ -21,30 +21,93 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        native-lib.cpp mylibs/add_wav_header.c)
+        native-lib.cpp filter_add_watermark.c ffmpeg_rtmp_push.c)
 
-#add_library(
-#        libyuv
+#set(LIBYUV_DIR ${CMAKE_SOURCE_DIR}/libyuv)
+#add_subdirectory(${LIBYUV_DIR})
+#include_directories(${LIBYUV_DIR}/include)
+
+
+set(JNI_LIBS_DIR ${CMAKE_SOURCE_DIR}/libs)
+
+#add_library(yuv
 #        SHARED
-#        IMPORTED
-#)
-#set_target_properties(
-#        libyuv
+#        IMPORTED )
+#set_target_properties(yuv
 #        PROPERTIES IMPORTED_LOCATION
-#        ${CMAKE_SOURCE_DIR}/../jniLibs/${CMAKE_ANDROID_ARCH_ABI}/libyuv.so
-#)
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
+#        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libyuv.so)
+add_library(yuv
+        STATIC
+        IMPORTED )
+set_target_properties(yuv
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libyuv.a)
 
-include_directories(
-        libyuv/include
-        mylibs
-)
+add_library(x264
+        SHARED
+        IMPORTED )
+set_target_properties(x264
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libx264.so)
 
-add_subdirectory(libyuv)
+add_library(avutil
+        SHARED
+        IMPORTED )
+set_target_properties(avutil
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libavutil.so )
+
+add_library(swresample
+        SHARED
+        IMPORTED )
+set_target_properties(swresample
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libswresample.so )
+
+add_library(swscale
+        SHARED
+        IMPORTED )
+set_target_properties(swscale
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libswscale.so )
+
+add_library(avcodec
+        SHARED
+        IMPORTED )
+set_target_properties(avcodec
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libavcodec.so )
+
+add_library(avformat
+        SHARED
+        IMPORTED )
+set_target_properties(avformat
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libavformat.so )
+
+add_library(avfilter
+        SHARED
+        IMPORTED )
+set_target_properties(avfilter
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libavfilter.so )
+
+add_library(avdevice
+        SHARED
+        IMPORTED )
+set_target_properties(avdevice
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libavdevice.so )
+
+add_library(postproc
+        SHARED
+        IMPORTED )
+set_target_properties(postproc
+        PROPERTIES IMPORTED_LOCATION
+        ${JNI_LIBS_DIR}/${CMAKE_ANDROID_ARCH_ABI}/libpostproc.so )
+
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
 
 find_library( # Sets the name of the path variable.
         log-lib
@@ -61,4 +124,5 @@ target_link_libraries( # Specifies the target library.
         native-lib
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib} yuv)
+        ${log-lib}
+        yuv x264 avutil swresample swscale avcodec avformat avfilter avdevice postproc)

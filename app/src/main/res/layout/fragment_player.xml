@@ -6,89 +6,102 @@
     android:layout_height="match_parent"
     tools:context=".ui.player.PlayerFragment">
 
+
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_width="344dp"
-        android:layout_height="441dp"
+        android:layout_width="352dp"
+        android:layout_height="402dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="338dp"
-        android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surfaceView" />
-
     <Button
         android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="54dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="90dp"
+        android:layout_height="37dp"
         android:text="@string/playButtonStr"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintStart_toStartOf="@+id/surfaceView"
+        app:layout_constraintTop_toTopOf="@+id/pauseButton" />
 
     <Button
         android:id="@+id/pauseButton"
-        android:layout_width="99dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="94dp"
+        android:layout_height="38dp"
         android:text="@string/pauseButtonStr"
         app:layout_constraintEnd_toStartOf="@+id/stopButton"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toEndOf="@+id/playButton"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/surfaceView"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/stopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="54dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
+        android:layout_width="94dp"
+        android:layout_height="40dp"
         android:text="@string/stopButtonStr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="@+id/surfaceView"
+        app:layout_constraintTop_toTopOf="@+id/pauseButton"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/chooseButton"
-        android:layout_width="343dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="117dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="48dp"
         android:text="@string/chooseButtonStr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="59dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/chooseTipStr"
-        app:layout_constraintStart_toStartOf="@+id/playButton"
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="352dp"
+        android:layout_height="66dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        app:layout_constraintEnd_toEndOf="@+id/surfaceView"
+        app:layout_constraintStart_toStartOf="@+id/surfaceView"
         app:layout_constraintTop_toBottomOf="@+id/pauseButton"
         tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="261dp"
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="334dp"
+        android:layout_height="35dp"
+        android:text="@string/filterButtonStr"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/chooseButton" />
+
+    <Button
+        android:id="@+id/defaultButton"
+        android:layout_width="111dp"
         android:layout_height="42dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="48dp"
+        android:text="@string/defaultButtonStr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chooseButton" />
+
+    <Button
+        android:id="@+id/rtmpButton"
+        android:layout_width="125dp"
+        android:layout_height="37dp"
+        android:text="@string/rtmpButtonStr"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/spinner2"
+        app:layout_constraintTop_toTopOf="@+id/spinner" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="204dp"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/stopButton"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/pauseButton"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/filterButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
